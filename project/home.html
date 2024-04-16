@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Jost';
+            color: white;
+        }
+
+        body{
+            background-color: rgb(25, 24, 24);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            gap: 1em;
+        }
+        main{
+            display: flex;
+            width: 100vw;
+            justify-content: center;
+            align-items: center;
+            gap: 2em;
+        }
+        .controls{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(55, 55, 55);
+            gap: 3em;
+            padding: 2em;
+            border-radius: 10px;
+            min-width: 50%;
+        }
+        .controls button{
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 1em 3em;
+            cursor: pointer;
+        }
+        .cnt-head{
+            align-self: center;
+        }
+        header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1em 3em;
+            width: 100vw;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        header nav ul{
+            display: flex;
+            list-style-type: none;
+            gap: 3em;
+        }
+        header nav ul li a{
+            text-decoration: none;
+        }
+        header nav ul li a:hover{
+            color: yellow;
+        }
+    </style>
+    <header>
+        <h1>NAME</h1>
+
+        <nav>
+            <ul>
+                <li><a href="/home">Page1</a></li>
+                <li><a href="/recognise">Page2</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- <img id="video_feed" width="640" height="480"> -->
+        <img id="video_feed" src="/video_feed" width="640" height="480">
+        <div class="controls">
+            <h2 class="cnt-head">Select</h2>
+            <button class="new-user">+ Add New User</button>
+
+        </div>
+    </main>
+
+    <script defer>
+        const newuser = document.querySelector('.new-user');
+
+        newuser.addEventListener('click', ()=>{
+
+            fetch('http://127.0.0.1:8000/select', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': "*"
+                },
+                body: JSON.stringify({text: "new user"}),
+                })
+                .then(res => res.json()).then(res=>{
+                    console.log("hello " + res.reply);
+                })
+                .catch(error => {console.error('Error:', error); });           
+        } );
+
+    </script>
+</body>
+</html>
